@@ -18,14 +18,14 @@ function App() {
   return (
     <Router>
       <div>
-          <ul>
+          {/* <ul>
             <li>
               <Link to="/">Home</Link>
             </li>
             <li>
               <Link to="/user">Usuário</Link>
             </li>
-          </ul>
+          </ul> */}
         <Switch>
           <Route path="/manager">
             <Manager />

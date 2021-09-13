@@ -27,6 +27,7 @@ function Subscriber() {
     async function monitorarPressao() {
         try {
             setPressaoStatus(true);
+
             await Providers.subscreverPressao(id);
             alert("Monitorando!")
         } catch (err) {
@@ -35,8 +36,8 @@ function Subscriber() {
 
     async function monitorarTemperatura() {
         try {
-            setTemperaturaStatus(true);
             await Providers.subscreverTemperatura(id);
+            setTemperaturaStatus(true);
             alert("Monitorando!")
         } catch (err) {
         }
@@ -44,8 +45,8 @@ function Subscriber() {
 
     async function monitorarSaturacao() {
         try {
-            setSaturacaoStatus(true);
             await Providers.subscreverSaturacao(id);
+            setSaturacaoStatus(true);
             alert("Monitorando!")
         } catch (err) {
         }
@@ -66,7 +67,8 @@ function Subscriber() {
                 data: o.contextElement.attributes[0].metadatas[0].value
             }
             not.push(info);
-            alert("ATENÇÃO\n" + info.name + " = " + info.valor)
+            if(info.valor > 130 || info.valor < 80)
+                alert("ATENÇÃO\n" + info.name + " = " + info.valor)
             console.log(o);
         }
         setNotificacoes(not)
@@ -86,7 +88,8 @@ function Subscriber() {
                 data: o.contextElement.attributes[0].metadatas[0].value
             }
             not.push(info);
-            alert("ATENÇÃO\n" + info.name + " = " + info.valor)
+            if(info.valor > 37.6 || info.valor < 35)
+                alert("ATENÇÃO\n" + info.name + " = " + info.valor)
             console.log(o);
         }
         setNotificacoes(not)
@@ -106,14 +109,12 @@ function Subscriber() {
                 data: o.contextElement.attributes[0].metadatas[0].value
             }
             not.push(info);
+            if(info.valor > 130 || info.valor < 80)
             alert("ATENÇÃO\n" + info.name + " = " + info.valor)
             console.log(o);
         }
         setNotificacoes(not)
     }
-
-
-
 
 
     function gerarLista(notificacoes) {
@@ -126,25 +127,25 @@ function Subscriber() {
 
     return (
         <div>
-            <div>
+            {/* <div>
                 <h1>NOW</h1>
                 <p>Monitore a saúde familiar com um toque!</p>
-            </div>
-            <div>
-                <h3>Informações do Usuário de ID = {id}</h3>
-                <button onClick={() => monitorarPressao()} disabled={pressaoStatus}>
+            </div> */}
+            <div className="contentBtns">
+                <h3>Central de Monitoramento para {id}</h3>
+                <button className="opcoesbtn" onClick={() => monitorarPressao()} disabled={pressaoStatus}>
                     {!pressaoStatus ? ("Monitorar Pressão") : ("Monitorando Pressão")}
                 </button>
-                <button onClick={() => monitorarTemperatura()} disabled={temperaturaStatus}>{!temperaturaStatus ? ("Monitorar Temperatura") : ("Monitorando Temperatura")}</button>
-                <button onClick={() => monitorarSaturacao()} disabled={saturacaoStatus}>{!saturacaoStatus ? ("Monitorar Saturação") : ("Monitorando Saturação")}</button>
+                <button className="opcoesbtn" onClick={() => monitorarTemperatura()} disabled={temperaturaStatus}>{!temperaturaStatus ? ("Monitorar Temperatura") : ("Monitorando Temperatura")}</button>
+                <button className="opcoesbtn" onClick={() => monitorarSaturacao()} disabled={saturacaoStatus}>{!saturacaoStatus ? ("Monitorar Saturação") : ("Monitorando Saturação")}</button>
 
             </div>
-            <div>
+            {/* <div>
 
                 {gerarLista(notificacoes)}
 
                 <p>---------</p>
-            </div>
+            </div> */}
         </div>
     );
 }
